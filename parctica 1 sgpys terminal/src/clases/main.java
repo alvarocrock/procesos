@@ -10,27 +10,19 @@ public class main {
 	
 
 	public static void main(String[] args) throws IOException {
+		comandos micomando;
 		// TODO Auto-generated method stub
-		String route="/";
-		ProcessBuilder ea = new ProcessBuilder("cmd.exe","/c","dir",route,"-l");
-		Process p = ea.start();
-		//BufferedReader bf= new BufferedReader();
-		StringBuilder output = new StringBuilder();
-		BufferedReader br= new BufferedReader(new InputStreamReader(p.getInputStream()));
-		String linea=null;
-		while ((linea = br.readLine()) != null)  {
-			//linea= br.readLine();
-			System.out.println(linea);
-		}
-		
+		micomando= new comandos();
+		micomando.lanzarcomando();
 
 	}
 	
-	public Boolean validar(String url) {
-		Boolean resul=false;
+	
+	
+	
+	
+	
 		
-		return resul;
-		
-	}
+	
 
 }
