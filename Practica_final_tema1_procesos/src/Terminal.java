@@ -64,11 +64,13 @@ public class Terminal {
             		miobool=true;
             		System.out.println("Ejercicio 3");
             		System.out.println();
+            		Ejercicio3();
             		break;
             case 4:  numero = 4;
             		miobool=true;
             		System.out.println("Ejercicio 4");
             		System.out.println();
+            		Ejercicio4();
                      break;
             case 5:  numero = 5;
             		miobool=true;
@@ -83,9 +85,9 @@ public class Terminal {
 			return miobool;
 	}
 	
-	
+	///////////////////////////////ejercicios////////////////////////////////////////
 	/**
-	 * Proceso de ejercicio 1
+	 * Proceso de ejercicio 1, crear una carpeta
 	 */
 	public static void Ejercicio1() {
 		String ruta;
@@ -97,7 +99,7 @@ public class Terminal {
 		
 			System.out.println();
 			System.out.println("Crear una carpeta dada una Ruta");
-			ruta= leerRuta();
+			ruta= elegirRuta();
 			//nombre=ElegirNombre();
 			
 			
@@ -105,16 +107,21 @@ public class Terminal {
 			
 			//PB= new ProcessBuilder("cmd.exe", "/c", "mkdir",nombre);
 			String command = "cmd /c mkdir "+ruta;
+			if (checkRuta(ruta)==false) {
 		    try {
 				child = Runtime.getRuntime().exec(command);
 				//comprobación
 				
-				
-				
+				System.out.println();
+				System.out.println("Carpeta creada, si para cosas de la escuela, siiii");
 				//Print(ruta);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			}
+			} else {
+				System.out.println();
+				System.out.println("La carpeta ya exixte, reciclar es importante");
 			}
 		    
 		    //if (checkRuta(ruta)==true) {
@@ -126,23 +133,138 @@ public class Terminal {
 	}
 	
 	/**
-	 * proceso ejercicio 2
+	 * proceso ejercicio 2, crear un fichero
 	 */
 	private static void Ejercicio2() {
 		String ruta;
+		String longitud;
+		ProcessBuilder PB;
+		ProcessBuilder LS;
+		Process child;
 		
 		
-		System.out.println();
-		System.out.println("Crear un fichero dada una Ruta");
-		ruta= leerRuta();
+			System.out.println();
+			System.out.println("Crear un fichero dada una Ruta");
+			ruta= elegirRuta();
+			longitud=ElegirLongitud();
+			
+			
+			//problema al crear la carpeta
+			
+			//PB= new ProcessBuilder("cmd.exe", "/c", "mkdir",nombre);
+			String command = "fsutil file createnew"+" "+ruta+ longitud;
+			if (checkRuta(ruta)==false) {
+		    try {
+				child = Runtime.getRuntime().exec(command);
+				//comprobación
+				
+				System.out.println();
+				System.out.println("Fichero creado, ahora a llenarlo de comida");
+				//Print(ruta);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			} else {
+				System.out.println();
+				System.out.println("Fichero ya exixte, Intentelo mas tarde");
+			}
+		    
+		
+	}
+		
+	/**
+	 * proceso del ejercicio 3, Listar todas la interfaces de red de nuestro equipo
+	 */
+	public static void Ejercicio3() {
+		ProcessBuilder processBuilder = new ProcessBuilder();
+		//Scanner misacanner;
+		processBuilder.command("cmd.exe", "/c", "ipconfig /all");
+		try {
+
+			Process process = processBuilder.start();
+
+			StringBuilder buffer = new StringBuilder();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+			// Guardamos en un buffer la salida del proceso
+			String line;
+			System.out.println("sus tarjetas de red son (con dirección mac):");
+			System.out.println();
+			while ((line = reader.readLine()) != null) {
+				if (line.contains("Adaptador") || line.contains("f¡sica")) {
+				buffer.append(line + "\n");
+				} else {
+					
+				}
+			}
+
+			if (process.waitFor() == 0) {
+				System.out.println(buffer);
+			} else {
+				System.out.println("mal");
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		
+		}
+	}
+	
+	/**
+	 * Comportamiento ejercicio 4, Mostrar la IP del ordenador dado el nombre de la interfaz de red
+	 */
+	public static void Ejercicio4() {
+		ProcessBuilder processBuilder = new ProcessBuilder();
+		String nombreinter= nombre_inter();
+		int cont=0;
+		processBuilder.command("cmd.exe", "/c", "ipconfig /all");
+		//netsh Realtek 8822CE Wireless LAN 802.11ac PCI-E NIC show interface
+		try {
+
+			Process process = processBuilder.start();
+
+			StringBuilder buffer = new StringBuilder();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+			// Guardamos en un buffer la salida del proceso
+			String line;
+			while ((line = reader.readLine()) != null) {
+				if (line.contains(nombreinter)) {
+				buffer.append(line + "\n");
+					
+				} else {
+					if (line.contains("IPv4")) {
+						buffer.append(line + "\n");
+					}
+				}
+			}
+
+			if (process.waitFor() == 0) {
+				System.out.println(buffer);
+			} else {
+				System.out.println("mal");
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		
+		}
 		
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Proceso usado para seleccionar la ruta
 	 * @return
 	 */
-	private static String leerRuta() {
+	private static String elegirRuta() {
 		// No cierren nunca el System.in si no quieren cargarse el flujo estandar
 		// (teclado)
 		Scanner sc = new Scanner(System.in);
@@ -150,15 +272,21 @@ public class Terminal {
 		return sc.nextLine();
 	}
 	
+	private static String nombre_inter() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Introduce el nombre de la interfaz: ");
+		return sc.nextLine();
+	}
+	
 	/**
-	 * Proceso para seleccionar nombre del archivo a crear
+	 * Proceso para seleccionar longitud del archivo a crear
 	 * @return
 	 */
-	private static String ElegirNombre() {
+	private static String ElegirLongitud() {
 		// No cierren nunca el System.in si no quieren cargarse el flujo estandar
 		// (teclado)
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Introduce el no nombre del fichero/carpeta a crear: ");
+		System.out.println("Introduce la longitud (bytes) del fichero a crear: ");
 		return sc.nextLine();
 	}
 	
