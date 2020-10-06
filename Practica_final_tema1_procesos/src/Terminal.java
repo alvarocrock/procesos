@@ -383,7 +383,8 @@ public class Terminal {
 		String ip=ElegirIP();
 		//String command = "cmd /c mkdir "+ruta;
 		Process proceso;
-		processBuilder.command("cmd.exe", "/c", "ping"+ip+"-l");
+		boolean conexion=false;
+		processBuilder.command("cmd.exe", "/c", "ping -l 1 "+ ip);
 		try {
 
 			/*
@@ -404,19 +405,23 @@ public class Terminal {
 
 			// Guardamos en un buffer la salida del proceso
 			String line;
-			while ((line = reader.readLine()) != null) {
-				buffer.append(line + "\n");
+			while ((line = reader.readLine()) != null && conexion==false) {
+				if (line.contains("perdidos = 0")) {
+					conexion=true;
+				}
 			}
 
-			if (process.waitFor() == 0) {
-				System.out.println(buffer);
+			if (conexion==true) {
+				System.out.println("");
+				System.out.println("Aleluya ves al resto del mundo");
+				System.out.println("");
 			} else {
-				System.out.println("No furula");
+				System.out.println("");
+				System.out.println("Hello darkness my old friend... estas mas solo que la una asi no llegas a plata");
+				System.out.println("");
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
