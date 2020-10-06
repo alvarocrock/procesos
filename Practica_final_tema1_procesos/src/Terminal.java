@@ -88,15 +88,16 @@ public class Terminal {
             		System.out.println();
                      break;
             case 6:  numero = 6;
+            		miobool=true;
     				System.out.println("Ejercicio 6");
     				System.out.println();
     				Ejercicio6();
     				break;
             case 7:  numero = 7;
-					System.out.println("Salir");
+					System.out.println("Saliendo.....");
 					System.out.println();
 					salir();
-			break;
+					break;
    
             case 8:  numero = 999;
             		System.out.println("Intentalo de nuevo");
