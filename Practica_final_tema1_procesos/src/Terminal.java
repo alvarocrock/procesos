@@ -465,7 +465,7 @@ public class Terminal {
 		// No cierren nunca el System.in si no quieren cargarse el flujo estandar
 		// (teclado)
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Introduce la ip: ");
+		System.out.println("Introduce la ip o el dominio: ");
 		return sc.nextLine();
 	}
 	
