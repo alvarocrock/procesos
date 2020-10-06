@@ -39,7 +39,7 @@ public class Terminal {
 		System.out.println("Si es el ejercicio 4 pulse 4.");
 		System.out.println("Si es el ejercicio 5 pulse 5.");
 		System.out.println("Si es el ejercicio 6 pulse 6.");
-		System.out.println("Si sesea salir pulse 7, actuamente reinicia el programa.");
+		System.out.println("Si sesea salir pulse 7");
 		numero=sc.nextInt();
 		if (numero<=8) {
 		return numero;
