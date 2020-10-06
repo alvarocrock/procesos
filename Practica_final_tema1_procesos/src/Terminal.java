@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Terminal {
 	//constante para ejercicio 3 , 4 y 5
@@ -30,9 +31,11 @@ public class Terminal {
 	 */
 	public static int PedirEleccion() {
 		Scanner sc = new Scanner(System.in);
-		int numero;
+		String numero="";
+		String patron="\\d+";
 		System.out.println("Introduce la opcion del ejercicio: ");
 		System.out.println("SOLO ADMINTE VALORES NUMERICOS!!!!!!");
+		System.out.println("Se que vas a intentar meter algo difernete, siempre pasa lo mismo");
 		System.out.println("Si es el ejercicio 1 pulse 1.");
 		System.out.println("Si es el ejercicio 2 pulse 2.");
 		System.out.println("Si es el ejercicio 3 pulse 3.");
@@ -40,9 +43,15 @@ public class Terminal {
 		System.out.println("Si es el ejercicio 5 pulse 5.");
 		System.out.println("Si es el ejercicio 6 pulse 6.");
 		System.out.println("Si sesea salir pulse 7");
-		numero=sc.nextInt();
-		if (numero<=8) {
-		return numero;
+		if (Pattern.matches(patron,numero=sc.next())) {
+			
+		}else {
+			numero="666";
+		}
+			
+		
+		if (Integer.parseInt(numero)<=8) {
+		return Integer.parseInt(numero);
 		} else  {
 		return 999;
 		}
@@ -88,7 +97,7 @@ public class Terminal {
             		System.out.println();
                      break;
             case 6:  numero = 6;
-            		//miobool=true;
+            		miobool=true;
     				System.out.println("Ejercicio 6");
     				System.out.println();
     				Ejercicio6();
@@ -158,11 +167,6 @@ public class Terminal {
 			}
 
 			ElegirEjercicio();
-		    //if (checkRuta(ruta)==true) {
-				//System.out.println("todo ha ido bien");
-			//} else {
-				//System.out.println("algo ha ido mal");
-			//}
 		
 	}
 	
@@ -172,8 +176,8 @@ public class Terminal {
 	private static void Ejercicio2() {
 		String ruta;
 		String longitud;
-		ProcessBuilder PB;
-		ProcessBuilder LS;
+		//ProcessBuilder PB;
+		//ProcessBuilder LS;
 		Process child;
 		
 		
@@ -183,14 +187,13 @@ public class Terminal {
 			longitud=ElegirLongitud();
 			
 			
-			//problema al crear la carpeta
 			
 			//PB= new ProcessBuilder("cmd.exe", "/c", "mkdir",nombre);
 			String command = "fsutil file createnew"+" "+ruta+ longitud;
 			if (checkRuta(ruta)==false) {
 		    try {
+		    	//error al usar el process builder, eta funcion es similar.
 				child = Runtime.getRuntime().exec(command);
-				//comprobación
 				
 				System.out.println();
 				System.out.println("Fichero creado, ahora a llenarlo de comida");
@@ -258,6 +261,7 @@ public class Terminal {
 		String nombreinter= nombre_inter();
 		int cont4=1;
 		String line;
+		boolean unaip=false;
 		boolean encontrado=false;
 		
 		
@@ -282,7 +286,8 @@ public class Terminal {
 						buffer.append(line + "\n");
 						encontrado=true;
 					}
-					if (encontrado==true && line.contains(IP) && cont4<6) {
+					if (encontrado==true && line.contains(IP) && unaip==false) {
+						unaip=true;
 						buffer.append(line + "\n");
 						
 						
@@ -416,10 +421,12 @@ public class Terminal {
 				System.out.println("");
 				System.out.println("Aleluya ves al resto del mundo");
 				System.out.println("");
+				ElegirEjercicio();
 			} else {
 				System.out.println("");
 				System.out.println("Hello darkness my old friend... estas mas solo que la una asi no llegas a plata");
 				System.out.println("");
+				ElegirEjercicio();
 			}
 
 		} catch (IOException e) {
@@ -433,8 +440,6 @@ public class Terminal {
 	 * @return
 	 */
 	private static String elegirRuta() {
-		// No cierren nunca el System.in si no quieren cargarse el flujo estandar
-		// (teclado)
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduce la ruta donde realizar el ejercicio: ");
 		return sc.nextLine();
@@ -451,23 +456,34 @@ public class Terminal {
 	 * @return
 	 */
 	private static String ElegirLongitud() {
-		// No cierren nunca el System.in si no quieren cargarse el flujo estandar
-		// (teclado)
+		String patron="\\d+";
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduce la longitud (bytes) del fichero a crear: ");
-		return sc.nextLine();
+		//si el patron no encaja o esta vacio, pondra como valor por defecto 0
+		if (Pattern.matches(patron,sc.nextLine())) {
+			return sc.nextLine();
+		} else {
+			return "0";
+		}
+		
 	}
 	
 	/**
-	 * Proceso para seleccionar ip
+	 * Proceso para seleccionar ip, poner nombre completo para evitar coincidencias ej. Adaptador de LAN inalámbrica Wi-Fi: 
+	 * en resumen en linux es mil veces mas facil, sencillo y no dan ganas de tirarse por unn puente
 	 * @return
 	 */
 	private static String ElegirIP() {
-		// No cierren nunca el System.in si no quieren cargarse el flujo estandar
-		// (teclado)
+		//String patron1="\\d{3}.\\d{3}.\\d{3}.";
+		//String patron2=".[com|es|net]";
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Introduce la ip o el dominio: ");
-		return sc.nextLine();
+		System.out.println("Introduce la ip o el dominio(.con,.es,.net): ");
+		//if (Pattern.matches(patron1,sc.nextLine()) || Pattern.matches(patron2,sc.nextLine())){
+			return sc.nextLine();
+		//} else {
+			//System.out.println("ere mu tonto esa ip/dominio no es valido te pongo un ping a tu ip local .-.");
+			//return "127.0.0.1";
+		//}
 	}
 	
 	/**
@@ -480,7 +496,7 @@ public class Terminal {
 	}
 	
 	/**
-	 * Proceso usado para comprobar el resultado de un comando
+	 * Proceso usado para comprobar el resultado del ejercicio 1 y 2, lo dejo aqui porque puede ser interesante para otro caso similar
 	 * @param p
 	 * @param PB
 	 */
