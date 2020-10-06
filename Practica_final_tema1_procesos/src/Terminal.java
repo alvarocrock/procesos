@@ -5,8 +5,13 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Terminal {
-
+	//constante para ejercicio 3 , 4 y 5
+	final static String IP="IPv4";
+	
+	final static String MAC="f¡sica";
+	
 	public static void main(String[] args) {
+		
 		// TODO Auto-generated method stub
 		boolean valor=ElegirEjercicio();
 		
@@ -16,6 +21,8 @@ public class Terminal {
 		}
 	
 	}
+	
+	
 	
 	/**
 	 * Proceso que devuelve un valor para realizar un ejercicio u otro
@@ -31,8 +38,10 @@ public class Terminal {
 		System.out.println("Si es el ejercicio 3 pulse 3.");
 		System.out.println("Si es el ejercicio 4 pulse 4.");
 		System.out.println("Si es el ejercicio 5 pulse 5.");
+		System.out.println("Si es el ejercicio 6 pulse 6.");
+		System.out.println("Si sesea salir pulse 7, actuamente reinicia el programa.");
 		numero=sc.nextInt();
-		if (numero<=5) {
+		if (numero<=8) {
 		return numero;
 		} else  {
 		return 999;
@@ -75,9 +84,21 @@ public class Terminal {
             case 5:  numero = 5;
             		miobool=true;
             		System.out.println("Ejercicio 5");
+            		Ejercicio5();
             		System.out.println();
                      break;
-            case 6:  numero = 999;
+            case 6:  numero = 6;
+    				System.out.println("Ejercicio 6");
+    				System.out.println();
+    				Ejercicio6();
+    				break;
+            case 7:  numero = 7;
+					System.out.println("Salir");
+					System.out.println();
+					salir();
+			break;
+   
+            case 8:  numero = 999;
             		System.out.println("Intentalo de nuevo");
             		System.out.println();
             		
@@ -86,6 +107,17 @@ public class Terminal {
 	}
 	
 	///////////////////////////////ejercicios////////////////////////////////////////
+	
+	
+	/**
+	 * comportamiento para cerrar terminal
+	 */
+	public  static void salir() {
+		//como se programa esta chingada????????
+		System.exit(0);
+	}
+	
+	
 	/**
 	 * Proceso de ejercicio 1, crear una carpeta
 	 */
@@ -123,7 +155,8 @@ public class Terminal {
 				System.out.println();
 				System.out.println("La carpeta ya exixte, reciclar es importante");
 			}
-		    
+
+			ElegirEjercicio();
 		    //if (checkRuta(ruta)==true) {
 				//System.out.println("todo ha ido bien");
 			//} else {
@@ -169,7 +202,7 @@ public class Terminal {
 				System.out.println();
 				System.out.println("Fichero ya exixte, Intentelo mas tarde");
 			}
-		    
+			ElegirEjercicio();
 		
 	}
 		
@@ -180,6 +213,7 @@ public class Terminal {
 		ProcessBuilder processBuilder = new ProcessBuilder();
 		//Scanner misacanner;
 		processBuilder.command("cmd.exe", "/c", "ipconfig /all");
+		System.out.println("Listar todas las interfaces de red de nuestro ordenador");
 		try {
 
 			Process process = processBuilder.start();
@@ -212,6 +246,7 @@ public class Terminal {
 			e.printStackTrace();
 		
 		}
+		ElegirEjercicio();
 	}
 	
 	/**
@@ -220,8 +255,14 @@ public class Terminal {
 	public static void Ejercicio4() {
 		ProcessBuilder processBuilder = new ProcessBuilder();
 		String nombreinter= nombre_inter();
-		int cont=0;
+		int cont4=1;
+		String line;
+		boolean encontrado=false;
+		
+		
+		
 		processBuilder.command("cmd.exe", "/c", "ipconfig /all");
+		System.out.println("Mostrar la IP del ordenador dado el nombre de la interfaz de red");
 		//netsh Realtek 8822CE Wireless LAN 802.11ac PCI-E NIC show interface
 		try {
 
@@ -232,18 +273,28 @@ public class Terminal {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
 			// Guardamos en un buffer la salida del proceso
-			String line;
+			
+			
 			while ((line = reader.readLine()) != null) {
-				if (line.contains(nombreinter)) {
-				buffer.append(line + "\n");
-					
-				} else {
-					if (line.contains("IPv4")) {
+				
+					if (line.contains(nombreinter)){
 						buffer.append(line + "\n");
+						encontrado=true;
+					}
+					if (encontrado==true && line.contains(IP) && cont4<6) {
+						buffer.append(line + "\n");
+						
+						
 					}
 				}
-			}
-
+	
+					//si el buffer esta vacio, no ha encontrado nada
+					if (buffer.length()==0) {
+						System.out.println("Proceso finalizado, intentelo de nuevo con otra interfaz");
+					}		
+						
+			
+					
 			if (process.waitFor() == 0) {
 				System.out.println(buffer);
 			} else {
@@ -256,9 +307,120 @@ public class Terminal {
 			e.printStackTrace();
 		
 		}
+		ElegirEjercicio();
 		
 	}
 	
+	/**
+	 * comportamiento ejercicio 5, Mostrar la dirección MAC dado el nombre de la interfaz de red
+	 */
+	
+	private static void Ejercicio5() {
+		
+			ProcessBuilder processBuilder = new ProcessBuilder();
+			String nombreinter= nombre_inter();
+			boolean unamac=false;
+			String line;
+			
+			
+			processBuilder.command("cmd.exe", "/c", "ipconfig /all");
+			System.out.println("Mostrar la MAC del ordenador dado el nombre de la interfaz de red");
+			//netsh Realtek 8822CE Wireless LAN 802.11ac PCI-E NIC show interface
+			try {
+
+				Process process = processBuilder.start();
+
+				StringBuilder buffer = new StringBuilder();
+
+				BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+				// Guardamos en un buffer la salida del proceso
+		
+				boolean encontrado=false;
+				while ((line = reader.readLine()) != null) {
+					
+						if (line.contains(nombreinter)){
+							buffer.append(line + "\n");
+							encontrado=true;
+						}
+						if (encontrado==true && line.contains(MAC) && unamac==false) {
+							unamac=true;
+							buffer.append(line + "\n");
+							
+						}
+					}
+		
+						//si el buffer esta vacio, no ha encontrado nada
+						if (buffer.length()==0) {
+							
+							System.out.println();
+							System.out.println("Proceso finalizado, intentelo de nuevo con otra interfaz");
+							System.out.println();
+						}		
+							
+				
+						
+				if (process.waitFor() == 0) {
+					System.out.println(buffer);
+				} else {
+					System.out.println("mal");
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			
+			}
+			ElegirEjercicio();
+	}
+	
+	/**
+	 * comportamiento ejercicio 6, Comporbar conectividad
+	 */
+	private static void Ejercicio6() {
+		ProcessBuilder processBuilder = new ProcessBuilder();
+		String ip=ElegirIP();
+		//String command = "cmd /c mkdir "+ruta;
+		Process proceso;
+		processBuilder.command("cmd.exe", "/c", "ping"+ip+"-l");
+		try {
+
+			/*
+			 * String command = "cmd /c mkdir "+ruta;
+			if (checkRuta(ruta)==false) {
+		    try {
+				child = Runtime.getRuntime().exec(command);
+			 */
+			
+			Process process = processBuilder.start();
+			
+			
+
+			StringBuilder buffer = new StringBuilder();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			
+
+			// Guardamos en un buffer la salida del proceso
+			String line;
+			while ((line = reader.readLine()) != null) {
+				buffer.append(line + "\n");
+			}
+
+			if (process.waitFor() == 0) {
+				System.out.println(buffer);
+			} else {
+				System.out.println("No furula");
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	///////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Proceso usado para seleccionar la ruta
@@ -287,6 +449,18 @@ public class Terminal {
 		// (teclado)
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduce la longitud (bytes) del fichero a crear: ");
+		return sc.nextLine();
+	}
+	
+	/**
+	 * Proceso para seleccionar ip
+	 * @return
+	 */
+	private static String ElegirIP() {
+		// No cierren nunca el System.in si no quieren cargarse el flujo estandar
+		// (teclado)
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Introduce la ip: ");
 		return sc.nextLine();
 	}
 	
