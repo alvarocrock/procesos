@@ -28,7 +28,7 @@ public class main {
 		//miSRT.run();
 		
 		SJF miSJF = new SJF(crearlista());
-		//miSJF.run();
+		miSJF.run();
 	}
 	
 	public static ArrayList<Proceso> crearlista(){

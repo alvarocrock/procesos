@@ -35,6 +35,9 @@ public class SJF extends ABSprocesos{
 							procesos_e.get(cont).setDuracion(procesos_e.get(cont).getDuracion()-1);
 							System.out.println("tiempo sitema:  "+ tiempo+"     "+procesos_e.get(cont).ToString());
 							tiempo++;
+							if (procesos_e.get(cont).getDuracion()==0) {
+								procesos_e.get(cont).setT_final(tiempo);
+							}
 						} else {
 							procesos.add(procesos_e.get(cont));
 							procesos_e.remove(procesos_e.get(cont));
@@ -45,6 +48,11 @@ public class SJF extends ABSprocesos{
 					} else {
 						procesos_e.get(cont).setDuracion(procesos_e.get(cont).getDuracion()-1);
 						System.out.println("tiempo sitema:  "+ tiempo+"     "+procesos_e.get(cont).ToString());
+						
+						if (procesos_e.get(cont).getDuracion()==0) {
+							procesos_e.get(cont).setT_final(tiempo);
+						}
+						
 						tiempo++;
 					}
 					
@@ -64,6 +72,7 @@ public class SJF extends ABSprocesos{
 		if (procesos.isEmpty() && procesos_e.isEmpty()) {
 			fin=true;
 			System.out.println("SJF finalizado");
+			mostrarmedias();
 		}
 			
 		}
@@ -97,6 +106,7 @@ public class SJF extends ABSprocesos{
 	private void EliminarFinalizado() {
 		for (int cont=0;cont<procesos_e.size();cont++) {
 			if (procesos_e.get(cont).getDuracion()==0) {
+				listaMedias.add(procesos_e.get(cont).calcmedia());
 				procesos_e.remove(cont);
 			}
 		}

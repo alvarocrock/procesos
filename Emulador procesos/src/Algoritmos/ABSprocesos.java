@@ -11,6 +11,9 @@ public abstract class ABSprocesos {
 	protected ArrayList<String> listaMedias;
 	
 	
+	/**
+	 * comportamiento para mostrar las medias de los procesos
+	 */
 	protected void mostrarmedias() {
 		
 		System.out.println();

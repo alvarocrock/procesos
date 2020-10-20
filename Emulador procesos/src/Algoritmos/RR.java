@@ -71,6 +71,8 @@ public class RR extends ABSprocesos{
 						} else {
 							procesos_e.get(cont).setDuracion(procesos_e.get(cont).getDuracion()-1);
 							System.out.println("tiempo sistema:  "+ tiempo+"     "+procesos_e.get(cont).ToString());
+							
+							
 							tiempo++;
 							if (contq==1) {
 								miproce=CrearProceso(cont);
@@ -97,6 +99,7 @@ public class RR extends ABSprocesos{
 				
 				fin=true;
 				System.out.println("RR Q="+quantum+" finalizado");
+				//mostrarmedias();
 				}
 			
 		}
@@ -146,6 +149,8 @@ public class RR extends ABSprocesos{
 			if (!(procesos_d.isEmpty())) {
 				for (int cont=0;cont<procesos_d.size();cont++) {
 					if (procesos_d.get(cont).getDuracion()==0) {
+						
+						//listaMedias.add(procesos_d.get(cont).calcmedia());
 						procesos_d.remove(cont);
 					}
 				}
@@ -156,4 +161,6 @@ public class RR extends ABSprocesos{
         }
 
 	}
+	
+	
 }

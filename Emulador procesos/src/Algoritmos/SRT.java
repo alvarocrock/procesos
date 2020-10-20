@@ -30,7 +30,13 @@ public class SRT extends ABSprocesos{
 			while (procesos_e.get(cont).getDuracion()!=0) {
 				procesos_e.get(cont).setDuracion(procesos_e.get(cont).getDuracion()-1);
 				System.out.println("tiempo sitema:  "+ tiempo+"     "+procesos_e.get(cont).ToString());
+				
+				if (procesos_e.get(cont).getDuracion()==0) {
+					procesos_e.get(cont).setT_final(tiempo);
+				}
+				
 				tiempo++;
+				
 			}
 		}
 		EliminarFinalizado();
@@ -38,6 +44,7 @@ public class SRT extends ABSprocesos{
 		if (procesos.isEmpty() && procesos_e.isEmpty()) {
 			fin=true;
 			System.out.println("SRT finalizado");
+			mostrarmedias();
 		}
 			
 		}
@@ -63,6 +70,7 @@ public class SRT extends ABSprocesos{
 	private void EliminarFinalizado() {
 		for (int cont=0;cont<procesos_e.size();cont++) {
 			if (procesos_e.get(cont).getDuracion()==0) {
+				listaMedias.add(procesos_e.get(cont).calcmedia());
 				procesos_e.remove(cont);
 			}
 		}
