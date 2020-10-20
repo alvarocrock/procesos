@@ -25,7 +25,7 @@ public class main {
 		//miRR.run();
 		
 		SRT miSRT = new SRT(crearlista());
-		miSRT.run();
+		//miSRT.run();
 		
 		SJF miSJF = new SJF(crearlista());
 		//miSJF.run();
@@ -35,9 +35,9 @@ public class main {
 		ArrayList<Proceso> lista=new ArrayList();
 		Proceso A= new Proceso("A",0,5);
 		Proceso B= new Proceso("B",1,2);
-		Proceso C= new Proceso("C",2,1);
-		Proceso D= new Proceso("D",3,1);
-		Proceso E= new Proceso("E",4,1);
+		Proceso C= new Proceso("C",2,3);
+		Proceso D= new Proceso("D",3,2);
+		Proceso E= new Proceso("E",10,1);
 		
 		lista.add(A);
 		lista.add(B);

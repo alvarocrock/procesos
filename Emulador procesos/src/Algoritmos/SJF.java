@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import Elementos.Proceso;
 
-public class SJF {
+public class SJF extends ABSprocesos{
 	
-	ArrayList<Proceso> procesos;
 	ArrayList<Proceso> procesos_e;
 	int tiempo;
 	
 
 	public SJF(ArrayList<Proceso> misprocesos) {
 		procesos=misprocesos;
+		listaMedias= new ArrayList();
 		procesos_e=new ArrayList();
 		tiempo=1;
 	}

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import Elementos.Proceso;
 
-public class SRT {
+public class SRT extends ABSprocesos{
 	
-	ArrayList<Proceso> procesos;
 	ArrayList<Proceso> procesos_e;
 	int tiempo;
 	
 
 	public SRT(ArrayList<Proceso> misprocesos) {
 		procesos=misprocesos;
+		listaMedias= new ArrayList();
 		procesos_e=new ArrayList();
 		tiempo=1;
 	}

@@ -9,9 +9,8 @@ import Elementos.Proceso;
  * @author alvar
  *
  */
-public class RR {
+public class RR extends ABSprocesos{
 	
-	ArrayList<Proceso> procesos;
 	ArrayList<Proceso> procesos_e;
 	ArrayList<Proceso> procesos_d;
 	
@@ -20,6 +19,7 @@ public class RR {
 	public RR(ArrayList<Proceso> lista, int miquantum) {
 		procesos=lista;
 		quantum=miquantum;
+		listaMedias= new ArrayList();
 		procesos_e= new ArrayList();
 		procesos_d= new ArrayList();
 		
@@ -32,6 +32,7 @@ public class RR {
 		int tiempo=1;
 		boolean primero=false;
 		boolean fin=false;
+		Proceso proceprueba;
 		Proceso miproce=null;
 
 		while (fin==false) {
@@ -56,23 +57,27 @@ public class RR {
 			for (int cont=0;cont<procesos_e.size();cont++) {
 				for (int contq=0;contq<quantum;contq++) {
 					try {
-						if (procesos_e.size()==0) {
-							break;
-						}
-						if (procesos_e.get(cont).getDuracion()==0 ) {
-						
-						procesos_e.remove(cont);
-						procesos_d.add(miproce);
-						eliminarfinalizado();
-					} else {
-						procesos_e.get(cont).setDuracion(procesos_e.get(cont).getDuracion()-1);
-						System.out.println("tiempo sitema:  "+ tiempo+"     "+procesos_e.get(cont).ToString());
-						tiempo++;
-						if (contq==1) {
-							miproce=CrearProceso(cont);
+						proceprueba= procesos_e.get(cont);
+					} catch(Exception e){
+						proceprueba= null;
+					}
+					try {
+						if (!procesos_e.isEmpty() && proceprueba!=null) {
+							if (procesos_e.get(cont).getDuracion()==0 ) {
+							
 							procesos_e.remove(cont);
 							procesos_d.add(miproce);
 							eliminarfinalizado();
+						} else {
+							procesos_e.get(cont).setDuracion(procesos_e.get(cont).getDuracion()-1);
+							System.out.println("tiempo sistema:  "+ tiempo+"     "+procesos_e.get(cont).ToString());
+							tiempo++;
+							if (contq==1) {
+								miproce=CrearProceso(cont);
+								procesos_e.remove(cont);
+								procesos_d.add(miproce);
+								eliminarfinalizado();
+							}
 						}
 					}
 					//procesos_d.add(miproce);

@@ -1,16 +1,20 @@
 package Algoritmos;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import Elementos.ABSproceso;
 import Elementos.Proceso;
 
-public class FIFO {
+public class FIFO extends ABSprocesos{
 	
-	protected ArrayList<Proceso> procesos;
+	
+	
 	
 	
 	public FIFO(ArrayList<Proceso> misprocesos) {
 		procesos= misprocesos;
+		listaMedias= new ArrayList();
 	}
 
 
@@ -32,25 +36,39 @@ public class FIFO {
 					while (miproce.getDuracion()!=0) {
 						miproce.setDuracion(miproce.getDuracion()-1);
 						System.out.println("tiempo sitema:  "+ tiempo+"     "+miproce.ToString());
+						
+						if (miproce.getDuracion()==0) {
+							 miproce.setT_final(tiempo);
+							 
+						}
+						
 						tiempo++;
 					}
 				}
 			}
 			//eliminar procesos que han finalizado
 			if (!(procesos.isEmpty())) {
+				String media;
 				for (int cont=0;cont<procesos.size();cont++) {
 					if (procesos.get(cont).getDuracion()==0) {
+						media=procesos.get(cont).calcmedia();
+						listaMedias.add(media);
 						procesos.remove(cont);
 					}
+					
 			}
 		}
 		}
-		
-		
-		
+	
 		if (procesos.isEmpty()) {
 			System.out.println("FIFO finalizado");
+			mostrarmedias();
+			
 		}
 	}
+	
+	
+	
+	
 }
 

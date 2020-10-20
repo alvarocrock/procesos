@@ -7,6 +7,8 @@ public class Proceso extends ABSproceso{
 		nombre=minombre;
 		T_Entrada=entrada;
 		Duracion=duracion;
+		duracion_ini=Duracion;
+		T_final=0;
 	}
 	
 }
