@@ -5,6 +5,11 @@ import java.util.Collections;
 
 import Elementos.Proceso;
 
+/**
+ * clase comun para todos los procesos
+ * @author alvar
+ *
+ */
 public abstract class ABSprocesos {
 
 	protected ArrayList<Proceso> procesos;
