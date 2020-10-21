@@ -4,12 +4,20 @@ import java.util.ArrayList;
 
 import Elementos.Proceso;
 
+/**
+ * clase que ejecuta el algoritmo SJF de la array de procesos que se le pasa
+ * @author alvar
+ *
+ */
 public class SJF extends ABSprocesos{
 	
-	ArrayList<Proceso> procesos_e;
+	ArrayList<Proceso> procesos_e; //lista de ejecución
 	int tiempo;
 	
-
+	/**
+	 * Constructor para crear el SJF solo es necesario pasarle una array list de procesos
+	 * @param misprocesos
+	 */
 	public SJF(ArrayList<Proceso> misprocesos) {
 		procesos=misprocesos;
 		listaMedias= new ArrayList();
@@ -17,6 +25,9 @@ public class SJF extends ABSprocesos{
 		tiempo=1;
 	}
 	
+	/**
+	 * comportamiento que ejecuta el algoritmo SJF
+	 */
 	public void run() {
 		boolean fin=false;
 		boolean cambio=false;
@@ -81,12 +92,19 @@ public class SJF extends ABSprocesos{
 		
 	}
 	
+	/**
+	 * comportamiento que llama a add lista para añadir el mas paequeño a la lista de ejecución
+	 */
 	private void addmaspequealista() {
 		if(!procesos.isEmpty()) {
 			AddLista();
 		}
 	}
 	
+	
+	/**
+	 * comportamiento que añade a la lista el proceso mas corto
+	 */
 	private void AddLista() {
 		Proceso menor;
 		menor=GetMasCorto();
@@ -103,6 +121,9 @@ public class SJF extends ABSprocesos{
 	
 	
 	
+	/**
+	 * commportamiento que elimina finalizados
+	 */
 	private void EliminarFinalizado() {
 		for (int cont=0;cont<procesos_e.size();cont++) {
 			if (procesos_e.get(cont).getDuracion()==0) {
@@ -114,7 +135,10 @@ public class SJF extends ABSprocesos{
 	
 	
 	
-	
+	/**
+	 * comportamiento para coger el proceso mas corto y retornar el objeto con el tiempo mas corto
+	 * @return
+	 */
 	public Proceso GetMasCorto() {
 		int cont2;
 		Proceso mascorto=null;
@@ -161,17 +185,6 @@ public class SJF extends ABSprocesos{
 			
 		
 	}
-	
-public Proceso CrearProceso(int cont) {
-		
-		//necestito quitar el primero de la lista procesos_e y ponerlo al final
-		String nombre=procesos.get(cont).getNombre();
-		int entrada=procesos.get(cont).getT_Entrada();
-		int duracion=procesos.get(cont).getDuracion();
-		Proceso miproce= new Proceso(nombre,entrada,duracion);
-		
-		return miproce;
-	
-	}
+
 
 }

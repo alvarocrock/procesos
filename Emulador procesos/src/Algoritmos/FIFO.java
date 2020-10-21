@@ -6,12 +6,21 @@ import java.util.Collections;
 import Elementos.ABSproceso;
 import Elementos.Proceso;
 
+/**
+ * clase que simulara FIFO
+ * @author alvar
+ *
+ */
 public class FIFO extends ABSprocesos{
 	
 	
 	
 	
 	
+	/**
+	 * constructor de FIFO es necesario pasale una array list de procesos
+	 * @param misprocesos
+	 */
 	public FIFO(ArrayList<Proceso> misprocesos) {
 		procesos= misprocesos;
 		listaMedias= new ArrayList();

@@ -22,10 +22,10 @@ public class main {
 		//ejercutar RR
 		
 		RR miRR=new RR(crearlista(),2);
-		miRR.run();
+		//miRR.run();
 		
 		SRT miSRT = new SRT(crearlista());
-		//miSRT.run();
+		miSRT.run();
 		
 		SJF miSJF = new SJF(crearlista());
 		//miSJF.run();

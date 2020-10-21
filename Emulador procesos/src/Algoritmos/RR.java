@@ -5,7 +5,8 @@ import java.util.Collections;
 
 import Elementos.Proceso;
 /**
- * work in progresss
+ * Clase que simulara RR, con un quantuum que se le pasara en el contructor<br>
+ * Puede contener errores
  * @author alvar
  *
  */
@@ -14,6 +15,11 @@ public class RR extends ABSprocesos{
 	
 	int quantum;
 	
+	/**
+	 * constructor de RR, es necesrio pasarle una array list de procesos y un int que actuara como quantum
+	 * @param lista
+	 * @param miquantum
+	 */
 	public RR(ArrayList<Proceso> lista, int miquantum) {
 		procesos=lista;
 		quantum=miquantum;
@@ -83,18 +89,10 @@ public class RR extends ABSprocesos{
 	
 	
 	
-	public Proceso CrearProceso(int cont) {
-			
-			//necestito quitar el primero de la lista procesos_e y ponerlo al final
-			String nombre=procesos.get(cont).getNombre();
-			int entrada=procesos.get(cont).getT_Entrada();
-			int duracion=procesos.get(cont).getDuracion();
-			Proceso miproce= procesos.get(cont);
-			
-			return miproce;
 		
-	}
-		
+	/**
+	 * proceso que elimina los que han terminado
+	 */
 	public void eliminarfinalizado() {
 		try {
 			if (!(procesos.isEmpty())) {

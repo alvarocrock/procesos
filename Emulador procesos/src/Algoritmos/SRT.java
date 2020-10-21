@@ -4,12 +4,20 @@ import java.util.ArrayList;
 
 import Elementos.Proceso;
 
+/**
+ * clase que ejecuta el algoritmo SRT de la array de procesos que se le pasa
+ * @author alvar
+ *
+ */
 public class SRT extends ABSprocesos{
 	
-	ArrayList<Proceso> procesos_e;
+	ArrayList<Proceso> procesos_e; //lista de ejecución
 	int tiempo;
 	
-
+	/**
+	 * Constructor para crear el SRT solo es necesario pasarle una array list de procesos
+	 * @param misprocesos
+	 */
 	public SRT(ArrayList<Proceso> misprocesos) {
 		procesos=misprocesos;
 		listaMedias= new ArrayList();
@@ -17,7 +25,9 @@ public class SRT extends ABSprocesos{
 		tiempo=1;
 	}
 	
-	
+	/**
+	 * ejecutar algoritmo SRT
+	 */
 	public void run() {
 		boolean fin=false;
 		while (fin==false) {
@@ -52,6 +62,9 @@ public class SRT extends ABSprocesos{
 		
 	}
 	
+	/**
+	 * comportamiento que añade a la lista el proceso mas corto
+	 */
 	private void AddLista() {
 		Proceso menor;
 		menor=GetMasCorto();
@@ -67,6 +80,9 @@ public class SRT extends ABSprocesos{
 		
 	}
 	
+	/**
+	 * commportamiento que elimina finalizados
+	 */
 	private void EliminarFinalizado() {
 		for (int cont=0;cont<procesos_e.size();cont++) {
 			if (procesos_e.get(cont).getDuracion()==0) {
@@ -76,7 +92,10 @@ public class SRT extends ABSprocesos{
 		}
 	}
 	
-	
+	/**
+	 * comportamiento para coger el proceso mas corto y retornar el objeto con el tiempo mas corto
+	 * @return
+	 */
 	public Proceso GetMasCorto() {
 		int cont2;
 		Proceso mascorto=null;
@@ -123,17 +142,5 @@ public class SRT extends ABSprocesos{
 			
 		
 		
-	}
-	
-public Proceso CrearProceso(int cont) {
-		
-		//necestito quitar el primero de la lista procesos_e y ponerlo al final
-		String nombre=procesos.get(cont).getNombre();
-		int entrada=procesos.get(cont).getT_Entrada();
-		int duracion=procesos.get(cont).getDuracion();
-		Proceso miproce= new Proceso(nombre,entrada,duracion);
-		
-		return miproce;
-	
 	}
 }
