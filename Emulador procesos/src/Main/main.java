@@ -22,22 +22,22 @@ public class main {
 		//ejercutar RR
 		
 		RR miRR=new RR(crearlista(),2);
-		//miRR.run();
+		miRR.run();
 		
 		SRT miSRT = new SRT(crearlista());
 		//miSRT.run();
 		
 		SJF miSJF = new SJF(crearlista());
-		miSJF.run();
+		//miSJF.run();
 	}
 	
 	public static ArrayList<Proceso> crearlista(){
 		ArrayList<Proceso> lista=new ArrayList();
 		Proceso A= new Proceso("A",0,5);
-		Proceso B= new Proceso("B",1,2);
-		Proceso C= new Proceso("C",2,3);
-		Proceso D= new Proceso("D",3,2);
-		Proceso E= new Proceso("E",10,1);
+		Proceso B= new Proceso("B",2,4);
+		Proceso C= new Proceso("C",3,3);
+		Proceso D= new Proceso("D",5,2);
+		Proceso E= new Proceso("E",6,3);
 		
 		lista.add(A);
 		lista.add(B);

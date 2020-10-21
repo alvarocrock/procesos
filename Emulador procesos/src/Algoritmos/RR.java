@@ -11,8 +11,6 @@ import Elementos.Proceso;
  */
 public class RR extends ABSprocesos{
 	
-	ArrayList<Proceso> procesos_e;
-	ArrayList<Proceso> procesos_d;
 	
 	int quantum;
 	
@@ -20,8 +18,6 @@ public class RR extends ABSprocesos{
 		procesos=lista;
 		quantum=miquantum;
 		listaMedias= new ArrayList();
-		procesos_e= new ArrayList();
-		procesos_d= new ArrayList();
 		
 	}
 	
@@ -30,80 +26,53 @@ public class RR extends ABSprocesos{
 	 */
 	public void run() {
 		int tiempo=1;
-		boolean primero=false;
+		Proceso miproce;
 		boolean fin=false;
-		Proceso proceprueba;
-		Proceso miproce=null;
-
+		boolean cambio=false;
+		
 		while (fin==false) {
-			
-			//añadir primer elemento a array procesos_e(ejecución)
-			if (!(procesos.isEmpty())) {
-				//procesos_e.clear();
-				if (procesos.get(0).getT_Entrada()<=tiempo) {
-					procesos_e.add(procesos.get(0));
-					procesos.remove(0);
-				}
-			}
-			
-			
-			if (miproce!=null) {
-				//cosas nacis
-				restaurar();
-				procesos_d.clear();
-			
-			}	
-			
-			for (int cont=0;cont<procesos_e.size();cont++) {
-				for (int contq=0;contq<quantum;contq++) {
-					try {
-						proceprueba= procesos_e.get(cont);
-					} catch(Exception e){
-						proceprueba= null;
-					}
-					try {
-						if (!procesos_e.isEmpty() && proceprueba!=null) {
-							if (procesos_e.get(cont).getDuracion()==0 ) {
-							
-							procesos_e.remove(cont);
-							procesos_d.add(miproce);
-							eliminarfinalizado();
-						} else {
-							procesos_e.get(cont).setDuracion(procesos_e.get(cont).getDuracion()-1);
-							System.out.println("tiempo sistema:  "+ tiempo+"     "+procesos_e.get(cont).ToString());
-							
-							
-							tiempo++;
-							if (contq==1) {
-								miproce=CrearProceso(cont);
-								procesos_e.remove(cont);
-								procesos_d.add(miproce);
-								eliminarfinalizado();
+				cambio=false;
+				while (cambio==false) {
+				if (!procesos.isEmpty()) {
+					
+					if (procesos.get(0).getT_Entrada()<tiempo ) {
+						for (int contq=0;contq<quantum;contq++) {
+							if (procesos.get(0).getDuracion()!=0) {
+								//haz cosas
+								procesos.get(0).setDuracion(procesos.get(0).getDuracion()-1);
+								System.out.println("tiempo sistema:  "+ tiempo+"     "+procesos.get(0).ToString());
+								if (procesos.get(0).getDuracion()==0) {
+									procesos.get(0).setT_final(tiempo);
+								}
+								tiempo++;
+								
+								if (contq==1) {
+										if (procesos.get(0).getDuracion()!=procesos.get(0).getDuracion_ini()) {
+										miproce=CrearProceso(0);
+										procesos.remove(0);
+										procesos.add(miproce);
+										cambio=true;
+										}
+								}
+								
 							}
 						}
 					}
-					//procesos_d.add(miproce);
-			            
-			        } catch (ArrayIndexOutOfBoundsException e) {
-			        	System.out.println("RR Q="+quantum+" finalizado");
-			        }
 					
-			} //fin primer for
-			
-			
-			//trabajar con listas
-			
-			}
-			
-			if (procesos_d.isEmpty() && procesos_e.isEmpty()) {
-				
-				fin=true;
-				System.out.println("RR Q="+quantum+" finalizado");
-				//mostrarmedias();
+				} else {
+					cambio=true;
 				}
-			
+				
+				
+				eliminarfinalizado();
+				
+			}
+				if (procesos.isEmpty()) {
+					fin=true;
+					System.out.println("RR Q="+quantum+" finalizado");
+					mostrarmedias();
+				}
 		}
-			
 				
 			
 	
@@ -114,44 +83,26 @@ public class RR extends ABSprocesos{
 	
 	
 	
-	public void HacerCopia() {
-		for(int cont=0;cont<procesos_e.size();cont++) {
-			procesos_d.add(procesos_e.get(cont));
-		}
-	}
-	
-	public void restaurar() {
-		for(int cont=0;cont<procesos_d.size();cont++) {
-			procesos_e.add(procesos_d.get(cont));
-		}
-	}
-	
-	/**
-	 * cargar elemento en la array de hechos
-	 */
 	public Proceso CrearProceso(int cont) {
-		
-		//necestito quitar el primero de la lista procesos_e y ponerlo al final
-		String nombre=procesos_e.get(cont).getNombre();
-		int entrada=procesos_e.get(cont).getT_Entrada();
-		int duracion=procesos_e.get(cont).getDuracion();
-		Proceso miproce= new Proceso(nombre,entrada,duracion);
-		
-		return miproce;
-		
-		
 			
+			//necestito quitar el primero de la lista procesos_e y ponerlo al final
+			String nombre=procesos.get(cont).getNombre();
+			int entrada=procesos.get(cont).getT_Entrada();
+			int duracion=procesos.get(cont).getDuracion();
+			Proceso miproce= procesos.get(cont);
+			
+			return miproce;
 		
 	}
 		
 	public void eliminarfinalizado() {
 		try {
-			if (!(procesos_d.isEmpty())) {
-				for (int cont=0;cont<procesos_d.size();cont++) {
-					if (procesos_d.get(cont).getDuracion()==0) {
+			if (!(procesos.isEmpty())) {
+				for (int cont=0;cont<procesos.size();cont++) {
+					if (procesos.get(cont).getDuracion()==0) {
 						
-						//listaMedias.add(procesos_d.get(cont).calcmedia());
-						procesos_d.remove(cont);
+						listaMedias.add(procesos.get(cont).calcmedia());
+						procesos.remove(cont);
 					}
 				}
 			}
