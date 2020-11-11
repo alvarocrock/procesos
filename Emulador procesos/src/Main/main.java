@@ -25,7 +25,7 @@ public class main {
 		//miRR.run();
 		
 		SRT miSRT = new SRT(crearlista());
-		miSRT.run();
+		//miSRT.run();
 		
 		SJF miSJF = new SJF(crearlista());
 		//miSJF.run();
