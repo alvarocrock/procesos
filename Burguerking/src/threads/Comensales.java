@@ -19,7 +19,7 @@ public class Comensales extends Thread{
 		while (true) {
 			mibandeja.consumir(id);
 			try {
-				Thread.sleep((long) ((Math.random()+1)*2000));
+				Thread.sleep((long) ((Math.random()+1)*25));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
