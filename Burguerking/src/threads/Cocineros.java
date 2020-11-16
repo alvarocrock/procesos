@@ -16,7 +16,7 @@ public class Cocineros extends Thread{
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep((long) ((Math.random()+1)*3));
+				Thread.sleep((long) ((Math.random())*2000));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

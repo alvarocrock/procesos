@@ -7,8 +7,8 @@ import threads.Comensales;
 
 
 public class recepción {
-	final static int N_cocineros=3; 
-	final static int N_comensales=8; 
+	final static int N_cocineros=2; 
+	final static int N_comensales=6; 
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
