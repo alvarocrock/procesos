@@ -43,6 +43,7 @@ public class Bandeja {
 			notify();
 			} else {
 			System.out.println("No hay pedidos de hamburguesas, y el cociero "+id+" se pone a hacer burbujas y cazar medusas");
+			notify();
 			try {
 				wait();
 			} catch (InterruptedException e) {
