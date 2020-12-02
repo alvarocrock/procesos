@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import Critico.Mesa;
 import model.Filosofo;
-import model.Plato;
 import model.Tenedor;
 
 public class main {
@@ -15,7 +14,6 @@ public class main {
 		// TODO Auto-generated method stub
 		ArrayList<Filosofo> filosofos=new ArrayList();
 		
-		ArrayList<Plato> platos=new ArrayList();
 		
 		Mesa mesa=new Mesa("redonda",5);
 		
