@@ -22,7 +22,7 @@ public class Cliente {
 		System.out.println("Tu turno");
 		
 		//bucle general
-		while (!mensaje.contains("cambio y corto") || !recibido.contains("cambio y corto")) {
+		while (!mensaje.equals("cambio y corto") || !recibido.equals("cambio y corto")) {
 			
 			Scanner sc = new Scanner(System.in);
 			mensaje= sc.nextLine();
@@ -39,10 +39,15 @@ public class Cliente {
 				mensajes.clear();
 			}
 			
+			if  (mensaje.contains("cambio y corto")) {
+				lado.enviar(mensajes);
+				lado.cerrar();
+				System.out.println("Has acabado la comunicación");
+			}
 			//enviar mensajes y limmpiar lista
 			
 			
-			if (mensaje.contains("cambio")) {
+			if (mensaje.equals("cambio")) {
 			//bucle para recibir paquetes
 				System.out.println("Esperando comunicaciones....");
 				while (!recibido.contains("cambio")) {
@@ -59,12 +64,12 @@ public class Cliente {
 			
 			}
 			
-			if (recibido.contains("cambio y corto") || mensaje.contains("cambio y corto")) {
+			if (recibido.contains("cambio y corto")) {
+				//lado.enviar(mensajes);
 				lado.cerrar();
-				System.out.println("Has acabado la comunicación");
+				System.out.println("Han acabado la comunicación");
 			} 
 		}
-		lado.cerrar();
 		System.out.println("comunicación cortada");
 
 	}
