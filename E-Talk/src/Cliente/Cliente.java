@@ -47,7 +47,7 @@ public class Cliente {
 			//enviar mensajes y limmpiar lista
 			
 			
-			if (mensaje.equals("cambio")) {
+			if (mensaje.contains("cambio")) {
 			//bucle para recibir paquetes
 				System.out.println("Esperando comunicaciones....");
 				while (!recibido.contains("cambio")) {

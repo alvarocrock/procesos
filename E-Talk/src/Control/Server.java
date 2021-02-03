@@ -14,6 +14,7 @@ public class Server {
 		LadoHost lado= new LadoHost();
 		String mensaje="";
 		String recibido="";
+		Boolean fin=false;
 		ArrayList<String> mensajes= new ArrayList<>();
 		
 		
@@ -26,18 +27,18 @@ public class Server {
 			while (!recibido.contains("cambio")) {
 				recibido=lado.recibir();
 				System.out.println("lado lumninoso: "+recibido);
+				if (recibido.contains("cambio y corto")) {
+					System.out.println("lado luminoso ha desaparecido");
+					fin=true;
+					lado.cerrar();
+					break;
+				}
 				
 			}
-			if (recibido.contains("cambio y corto")) {
-				System.out.println("lado luminoso ha desaparecido");
-				lado.cerrar();
-			}
-			
-			System.out.println("Tu turno");
-			
 			
 			//bucle general
-			if (recibido.contains("cambio")) {
+			if (recibido.contains("cambio") && fin==false) {
+				System.out.println("Tu turno");
 				recibido="";
 				while (!mensaje.contains("cambio")) {
 					Scanner sc = new Scanner(System.in);
@@ -61,6 +62,7 @@ public class Server {
 			if (recibido.contains("cambio y corto") || mensaje.contains("cambio y corto")) {
 				lado.cerrar();
 				System.out.println("comunicación cortada");
+				break;
 			}
 		}
 		lado.cerrar();
