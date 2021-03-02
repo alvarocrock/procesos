@@ -51,7 +51,7 @@ public class ServerThread extends Thread {
 			} else if (valor.contains("option2")) {
 				String[] list= valor.split(";");
 				sendsales(Integer.valueOf(list[1]));
-			} else if (valor.contains("end")) {
+			} else if (valor.contains("End")) {
 				fin=true;
 				close();
 
